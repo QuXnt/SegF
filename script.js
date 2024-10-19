@@ -50,7 +50,7 @@ signaling.onmessage = e => {
   }
 };
 
-startButton.onclick = async () => {
+startButton.addEventListener('click', async () => {
   localStream = await navigator.mediaDevices.getUserMedia({audio: true, video: true});
   localVideo.srcObject = localStream;
 
@@ -59,12 +59,22 @@ startButton.onclick = async () => {
   nextButton.style.display = "inline";
 
   signaling.postMessage({type: 'ready'});
-};
+});
 
-hangupButton.onclick = async () => {
-  hangup();
+hangUpButton.addEventListener('click', () => {
+    if (pc) {
+        pc.close();
+        pc = null;
+    }
+    localStream.getTracks().forEach(track => track.stop());
+    localVideo.srcObject = null;
+    localStream = null;
+    remoteVideo.srcObject = null;
+    hangUpButton.style.display = "none";
+    nextButton.style.display = "none";
+    startButton.style.display = "inline";
   signaling.postMessage({type: 'bye'});
-};
+});
 
 async function hangup() {
   if (pc) {
@@ -73,6 +83,7 @@ async function hangup() {
   }
   localStream.getTracks().forEach(track => track.stop());
   localVideo.srcObject = null;
+  localStream = null;
   remoteVideo.srcObject = null;
   hangUpButton.style.display = "none";
   nextButton.style.display = "none";
