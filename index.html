@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Video Chat</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body> 
+    <div class="container">
+        <div id="root"></div>
+        <header>
+            <h1>Random Video Chat</h1>
+            <p>Connect with strangers around the world!</p>
+        </header>
+        <main>
+            <div class="video-container">
+                <video id="localVideo" autoplay muted></video>
+                <video id="remoteVideo" autoplay></video>
+                <div class="chat-container">
+                    <div class="chat-header">
+                        Chatbox
+                    </div>
+                    <div class="chat-body" id="chat-body">
+                        <!-- Messages will be appended here -->
+                    </div>
+                    <div class="chat-footer">
+                        <input type="text" id="message-input" placeholder="Type a message..." autocomplete="off">
+                        <button id="input-submit" onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+            </div>
+            <button id="startButton">Start Chat</button>
+            <button id="hangUpButton" style="display:none;">Hang Up</button>
+            <button id="nextButton" style="display:none;">Next</button>
+        </main>
+    </div>
+    <script src="script.js"></script>
+    <script type="module" src="/src/main.jsx"></script>
+</body>
+</html>
